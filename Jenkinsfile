@@ -1,11 +1,12 @@
 pipeline {
-    agent {
+    agent none
+    stages {
+        stage("Build"){
+            agent {
         node{
             label "linux && java17"
         }
     }
-    stages {
-        stage("Build"){
             steps {
 
                 script {
@@ -13,7 +14,7 @@ pipeline {
                         "firstName": "Miftahul",
                         "lastName": "Khannedy"
                     ]
-                    writeJSON(file: "data.json", json: data)
+                    writeJSON(file: "data.json", json:)
                 }
 
                 script {
@@ -28,6 +29,11 @@ pipeline {
         }
 
         stage("Test"){
+            agent {
+        node{
+            label "linux && java17"
+        }
+    }
             steps {
                 echo("Start Test")
                 sh("./mvnw test")
@@ -36,6 +42,11 @@ pipeline {
         }
 
         stage("Deploy"){
+            agent {
+        node{
+            label "linux && java17"
+        }
+    }
             steps {
                 echo("Hello Deploy 1")
                 sleep(5)
