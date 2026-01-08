@@ -14,7 +14,7 @@ pipeline {
                         "firstName": "Miftahul",
                         "lastName": "Khannedy"
                     ]
-                    writeJSON(file: "data.json", json:)
+                    writeJSON(file: "data.json", json: data)
                 }
 
                 script {
