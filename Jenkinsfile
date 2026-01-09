@@ -102,7 +102,7 @@ pipeline {
         stage("Deploy"){
             
             input {
-                message "Can we deploy"
+                message "Can we deploy?"
                 ok "Yes, of course"
                 submitter "Miftah, Miptah"
                 parameters{
@@ -110,16 +110,29 @@ pipeline {
                 }
             }
             agent {
-        node{
-            label "linux && java17"
+                node{
+                    label "linux && java17"
         }
     }
             steps {
-                echo("Hello Deploy 1")
-                sleep(5)
-                echo("Hello Deploy 2")
-                echo("Hello Deploy 3")
+                echo("Deploy to ${TARGET_ENV}")
             }
+        }
+        
+        stage("Release"){
+            when {
+                expression {
+                    return params.DEPLOY
+                }
+            }
+            agent {
+                node{
+                    label "linux && java17"
+        }
+    }
+    steps {
+        echo("Release it")
+    }
         }
 
     }
