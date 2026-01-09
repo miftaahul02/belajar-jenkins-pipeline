@@ -6,9 +6,9 @@ pipeline {
         EMAIL = "105841116023@student.unismuh.ac.id"
     }
 
-    triggers {
-        cron("*/5 * * * *")
-    }
+    // triggers {
+    //     cron("*/5 * * * *")
+    // }
 
     parameters {
         string(name: "NAME", defaultValue: "Guest", description: "What is your name?")
@@ -100,6 +100,15 @@ pipeline {
         }
 
         stage("Deploy"){
+            
+            input {
+                message "Can we deploy"
+                ok "Yes, of course"
+                submitter "Miftah, Miptah"
+                parameters{
+                    choice(name: "TARGET_ENV", choices: ['DEV', 'QA', 'PROD'], description: "Which Environment?")
+                }
+            }
             agent {
         node{
             label "linux && java17"
